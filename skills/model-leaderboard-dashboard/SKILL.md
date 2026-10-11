@@ -11,7 +11,7 @@ Never type model names or numbers yourself: the scripts read them from the fetch
 
 ## Step 1: fetch the leaderboards
 
-Call `web_fetch_exa` with exactly:
+Do NOT use web_search_exa for this skill. Call `web_fetch_exa` with exactly:
 
 - urls: ["https://benchlm.ai/best/open-source", "https://seminal.ai/open-source-large-language-models/", "https://artificialwatch.com/open-weights", "https://artificialanalysis.ai/models/open-source", "https://www.vellum.ai/open-llm-leaderboard"]
 - maxCharacters: 60000

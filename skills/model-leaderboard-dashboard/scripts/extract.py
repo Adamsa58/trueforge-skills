@@ -17,7 +17,14 @@ import os
 import re
 import sys
 
-DEFAULT_INPUT_GLOB = "/opt/tf/tool-results/*"
+# Only the web_fetch_exa result of SKILL.md step 1 has the full leaderboard
+# tables; search results are short highlights and give a poor dashboard.
+DEFAULT_INPUT_GLOB = "/opt/tf/tool-results/web_fetch_exa_*"
+FETCH_HINT = (
+    'Call web_fetch_exa with maxCharacters 60000 and urls ["https://benchlm.ai/best/open-source", '
+    '"https://seminal.ai/open-source-large-language-models/", "https://artificialwatch.com/open-weights", '
+    '"https://artificialanalysis.ai/models/open-source", "https://www.vellum.ai/open-llm-leaderboard"], '
+    "then run this script again. Do not use web_search_exa for this.")
 DEFAULT_OUT_DIR = "/opt/tf/work"
 
 # Header text (lowercase) -> merged field name. Anything numeric that is not
@@ -47,8 +54,7 @@ NUMERIC = re.compile(r"^[\s$~<>]*-?\d[\d,]*(\.\d+)?")
 def newest_input():
     files = [f for f in glob.glob(DEFAULT_INPUT_GLOB) if os.path.isfile(f)]
     if not files:
-        sys.exit("No saved tool results found in /opt/tf/tool-results. "
-                 "Run the web_fetch_exa step first (with maxCharacters 60000).")
+        sys.exit("No saved web_fetch_exa result found in /opt/tf/tool-results. " + FETCH_HINT)
     return max(files, key=os.path.getmtime)
 
 
