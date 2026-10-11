@@ -53,8 +53,9 @@ function num(v){if(v==null)return NaN;const m=String(v).replace(/,/g,"").match(/
  const u=String(v).slice(m.index+m[0].length).trim().charAt(0).toUpperCase();return n*({K:1e3,M:1e6,B:1e9,T:1e12}[u]||1);}
 const metricNames=[...new Set(MODELS.flatMap(m=>Object.keys(m.metrics)))].map(k=>[k,MODELS.filter(m=>m.metrics[k]).length]).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);
 const topMetrics=metricNames.slice(0,5);
-const cols=[["name","Model"],["creator","Creator"],["params","Parameters"],["context","Context"],["license","License"],["speed","Speed"],["price","Price"]]
- .filter(([k])=>k==="name"||MODELS.some(m=>m[k])).concat(topMetrics.map(k=>["m:"+k,k])).concat([["sources","Sources"]]);
+const cols=[["name","Model"],["creator","Creator"]].concat(topMetrics.map(k=>["m:"+k,k]))
+ .concat([["params","Parameters"],["context","Context"],["license","License"],["speed","Speed"],["price","Price"]].filter(([k])=>MODELS.some(m=>m[k])))
+ .concat([["sources","Sources"]]);
 const val=(m,k)=>k.startsWith("m:")?m.metrics[k.slice(2)]:k==="sources"?m.sources.join(", "):m[k];
 let sortKey=topMetrics[0]?"m:"+topMetrics[0]:"name", sortDir=-1;
 function cmp(a,b,k){const x=val(a,k),y=val(b,k),nx=num(x),ny=num(y);

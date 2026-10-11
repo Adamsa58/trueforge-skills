@@ -204,8 +204,10 @@ def merge(sources):
                     if field and field != "name":
                         m.setdefault(field, val)
                     elif first_number(val) is not None:
-                        label = h if not t["heading"] or t["heading"].lower() in ("rankings", "model cards") \
-                            else t["heading"] + " " + h
+                        # A bare "score" column only makes sense with its section title
+                        # (e.g. "Best in Reasoning (GPQA Diamond)"); other headers stand alone.
+                        label = t["heading"] + " " + h if h == "score" and t["heading"] \
+                            and t["heading"].lower() not in ("rankings", "model cards") else h
                         m["metrics"]["%s: %s" % (site, label)] = val
     return sorted(models.values(), key=lambda m: m["name"].lower())
 

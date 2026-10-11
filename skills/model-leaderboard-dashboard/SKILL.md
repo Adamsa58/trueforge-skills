@@ -6,6 +6,7 @@ description: Research current open-weight and open-source LLMs from public leade
 # Model leaderboard dashboard
 
 Do these steps in order. Each step is ONE tool call. Copy commands exactly.
+After each tool result, go straight to the next step's tool call. Do not stop, summarize or ask questions until Step 4.
 Never type model names or numbers yourself: the scripts read them from the fetched pages.
 
 ## Step 1: fetch the leaderboards
